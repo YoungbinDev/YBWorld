@@ -58,7 +58,8 @@ public class IKFootSolver : MonoBehaviour
         {
             Debug.DrawRay(targetPos, hit.point - targetPos, Color.blue);
 
-
+            if (root.GetComponent<ProceduralAnimationController>().isWalk)
+            {
                 if (isFirstStep)
                 {
                     if (Vector3.Distance(targetPos, hit.point + new Vector3(0, offsetPos.y, 0)) >= footStepDistance)
@@ -83,7 +84,7 @@ public class IKFootSolver : MonoBehaviour
                         currentCoroutine = StartCoroutine(Walk(tempPos, targetPos, 0.15f));
                     }
                 }
-            
+            }
         }
         else
         {

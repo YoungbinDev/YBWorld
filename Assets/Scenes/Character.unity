@@ -816,6 +816,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2441758871642860287, guid: f687252b861c9df4a931f0c13ac32c8b, type: 3}
+      propertyPath: footType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2441758871642860287, guid: f687252b861c9df4a931f0c13ac32c8b, type: 3}
       propertyPath: footStepDistance
       value: 0.3
       objectReference: {fileID: 0}
