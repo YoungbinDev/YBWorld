@@ -51,7 +51,7 @@ public class IKFootSolver : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        Ray ray = new Ray(body.position + root.rotation * new Vector3(offsetPos.x, 0, offsetPos.z + (isFirstStep ? footStepDistance : footStepDistance)), Vector3.down);
+        Ray ray = new Ray(body.position + root.rotation * new Vector3(offsetPos.x, 0, offsetPos.z + footStepDistance), Vector3.down);
         Debug.DrawRay(body.position + root.rotation * new Vector3(offsetPos.x, 0, offsetPos.z + footStepDistance), Vector3.down, Color.red);
 
         if (Physics.Raycast(ray, out RaycastHit hit, 3f, terrainLayer.value))
