@@ -17,6 +17,7 @@ public class ProceduralAnimationController : MonoBehaviour
     private Vector3 tempPos;
 
     private Animator anim;
+    private Rigidbody rigid;
 
     [HideInInspector]
     public Coroutine currentRootCoroutine;
@@ -30,6 +31,7 @@ public class ProceduralAnimationController : MonoBehaviour
     {
         offsetPos = body.transform.position - transform.position;
         anim = this.GetComponent<Animator>();
+        rigid = this.GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -37,20 +39,34 @@ public class ProceduralAnimationController : MonoBehaviour
         if (Input.GetKey(KeyCode.W) && currentRootCoroutine == null && currentLegCoroutine == null)
         {
             isWalk = true;
-            this.transform.Translate(this.transform.forward * Time.deltaTime);
+            //this.transform.Translate(this.transform.forward * Time.deltaTime);
         }
         else
+        {
             isWalk = false;
+        }
 
         centerOfMass = (leftFootTarget.position + rightFootTarget.position + body.position) / 3;
 
         anim.SetBool("isWalk", isWalk);
     }
 
+    private void FixedUpdate()
+    {
+        if(isWalk)
+        {
+            rigid.velocity = Vector3.Lerp(rigid.velocity, rigid.velocity + transform.forward, Time.deltaTime * 10);
+        }
+        else
+        {
+            rigid.velocity = Vector3.Lerp(rigid.velocity, Vector3.zero, Time.deltaTime * 10);
+        }
+    }
+
     // Update is called once per frame
     void LateUpdate()
     {
-        Ray ray = new Ray(transform.position + offsetPos + transform.forward * 0.3f, Vector3.down);
+        Ray ray = new Ray(transform.position + offsetPos + transform.forward * 0.3f , Vector3.down);
         Debug.DrawRay(transform.position + offsetPos + transform.forward * 0.3f, Vector3.down);
 
         float test1 = Vector3.Dot(transform.forward, (leftFootTarget.position - transform.position).normalized);
@@ -76,6 +92,7 @@ public class ProceduralAnimationController : MonoBehaviour
                         }
                         else
                         {
+                            //transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
                             //transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, hit.point.y, transform.position.z), Time.deltaTime * 10);
                         }
                     }
@@ -89,6 +106,7 @@ public class ProceduralAnimationController : MonoBehaviour
                         }
                         else
                         {
+                            //transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
                             //transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, hit.point.y, transform.position.z), Time.deltaTime * 10);
                         }
                     }

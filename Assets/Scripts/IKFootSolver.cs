@@ -58,15 +58,15 @@ public class IKFootSolver : MonoBehaviour
         {
             Debug.DrawRay(targetPos, hit.point - targetPos, Color.blue);
 
-            if(root.GetComponent<ProceduralAnimationController>().currentLegCoroutine == null && currentCoroutine == null)
+            if (root.GetComponent<ProceduralAnimationController>().currentLegCoroutine == null && currentCoroutine == null)
             {
-                if (root.GetComponent<ProceduralAnimationController>().isWalk)
-                {
+                //if (root.GetComponent<ProceduralAnimationController>().isWalk)
+                //{
                     if (root.GetComponent<ProceduralAnimationController>().frontFoot != transform)
                     {
                         if (root.GetComponent<ProceduralAnimationController>().frontFoot != null)
                         {
-                            if (Vector3.Dot(root.forward, (root.GetComponent<ProceduralAnimationController>().frontFoot.position - body.position).normalized) < 0)
+                            if (Vector3.Dot(root.forward, (root.GetComponent<ProceduralAnimationController>().frontFoot.position - body.position).normalized) < 0f)
                             {
                                 tempPos = targetPos;
                                 targetPos = hit.point + new Vector3(0, offsetPos.y, 0);
@@ -77,7 +77,7 @@ public class IKFootSolver : MonoBehaviour
                                 root.GetComponent<ProceduralAnimationController>().frontFoot = transform;
                             }
                         }
-                        else
+                        else if(root.GetComponent<ProceduralAnimationController>().isWalk)
                         {
                             tempPos = targetPos;
                             targetPos = hit.point + new Vector3(0, offsetPos.y, 0);
@@ -88,7 +88,7 @@ public class IKFootSolver : MonoBehaviour
                             root.GetComponent<ProceduralAnimationController>().frontFoot = transform;
                         }
                     }
-                }
+                //}
             }
         }
         else
