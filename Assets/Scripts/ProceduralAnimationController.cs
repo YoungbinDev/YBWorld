@@ -8,7 +8,9 @@ public class ProceduralAnimationController : MonoBehaviour
     [SerializeField] private Transform body;
     [SerializeField] private Transform leftFootTarget;
     [SerializeField] private Transform rightFootTarget;
+    public Transform frontFoot;
     [SerializeField] private float stepHeight;
+    public Vector3 centerOfMass;
 
     private Vector3 targetPos;
     private Vector3 offsetPos;
@@ -18,6 +20,8 @@ public class ProceduralAnimationController : MonoBehaviour
 
     [HideInInspector]
     public Coroutine currentRootCoroutine;
+    [HideInInspector]
+    public Coroutine currentLegCoroutine;
 
     public bool isWalk = false;
 
@@ -30,13 +34,15 @@ public class ProceduralAnimationController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.W) && currentRootCoroutine == null)
+        if (Input.GetKey(KeyCode.W) && currentRootCoroutine == null && currentLegCoroutine == null)
         {
             isWalk = true;
             this.transform.Translate(this.transform.forward * Time.deltaTime);
         }
         else
             isWalk = false;
+
+        centerOfMass = (leftFootTarget.position + rightFootTarget.position + body.position) / 3;
 
         anim.SetBool("isWalk", isWalk);
     }
@@ -61,14 +67,11 @@ public class ProceduralAnimationController : MonoBehaviour
                 {
                     if (transform.position.y > leftFootTarget.position.y || transform.position.y > rightFootTarget.position.y)
                     {
-                        Debug.Log(leftFootDis);
-                        Debug.Log(rightFootDis);
-
                         if (leftFootDis > stepHeight / 2 || rightFootDis > stepHeight / 2)
                         {
                             tempPos = transform.position;
                             //targetPos = new Vector3(transform.position.x, 0, transform.position.z);
-                            targetPos = transform.position.y > leftFootTarget.position.y ? leftFootTarget.position - leftFootTarget.GetComponent<IKFootSolver>().offsetPos : rightFootTarget.position - rightFootTarget.GetComponent<IKFootSolver>().offsetPos;
+                            targetPos = hit.point;
                             currentRootCoroutine = StartCoroutine(MoveTo(tempPos, targetPos, 0.15f));
                         }
                         else
@@ -110,5 +113,11 @@ public class ProceduralAnimationController : MonoBehaviour
         }
 
         currentRootCoroutine = null;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(centerOfMass, 0.05f);
     }
 }

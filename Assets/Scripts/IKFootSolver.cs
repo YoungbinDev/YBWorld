@@ -51,37 +51,42 @@ public class IKFootSolver : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        Ray ray = new Ray(body.position + root.rotation * new Vector3(offsetPos.x, 0, offsetPos.z + (isFirstStep ? footStepDistance * 0.7f : footStepDistance)), Vector3.down);
+        Ray ray = new Ray(body.position + root.rotation * new Vector3(offsetPos.x, 0, offsetPos.z + (isFirstStep ? footStepDistance : footStepDistance)), Vector3.down);
         Debug.DrawRay(body.position + root.rotation * new Vector3(offsetPos.x, 0, offsetPos.z + footStepDistance), Vector3.down, Color.red);
 
         if (Physics.Raycast(ray, out RaycastHit hit, 3f, terrainLayer.value))
         {
             Debug.DrawRay(targetPos, hit.point - targetPos, Color.blue);
 
-            if (root.GetComponent<ProceduralAnimationController>().isWalk)
+            if(root.GetComponent<ProceduralAnimationController>().currentLegCoroutine == null && currentCoroutine == null)
             {
-                if (isFirstStep)
+                if (root.GetComponent<ProceduralAnimationController>().isWalk)
                 {
-                    if (Vector3.Distance(targetPos, hit.point + new Vector3(0, offsetPos.y, 0)) >= footStepDistance)
+                    if (root.GetComponent<ProceduralAnimationController>().frontFoot != transform)
                     {
-                        tempPos = targetPos;
-                        targetPos = hit.point + new Vector3(0, offsetPos.y, 0);
-                        targetRot = Quaternion.LookRotation(Vector3.Cross(root.right, hit.normal)) * offsetRot;
+                        if (root.GetComponent<ProceduralAnimationController>().frontFoot != null)
+                        {
+                            if (Vector3.Dot(root.forward, (root.GetComponent<ProceduralAnimationController>().frontFoot.position - body.position).normalized) < 0)
+                            {
+                                tempPos = targetPos;
+                                targetPos = hit.point + new Vector3(0, offsetPos.y, 0);
+                                targetRot = Quaternion.LookRotation(Vector3.Cross(root.right, hit.normal)) * offsetRot;
 
-                        isFirstStep = false;
+                                currentCoroutine = StartCoroutine(Walk(tempPos, targetPos, 0.2f));
+                                root.GetComponent<ProceduralAnimationController>().currentLegCoroutine = currentCoroutine;
+                                root.GetComponent<ProceduralAnimationController>().frontFoot = transform;
+                            }
+                        }
+                        else
+                        {
+                            tempPos = targetPos;
+                            targetPos = hit.point + new Vector3(0, offsetPos.y, 0);
+                            targetRot = Quaternion.LookRotation(Vector3.Cross(root.right, hit.normal)) * offsetRot;
 
-                        currentCoroutine = StartCoroutine(Walk(tempPos, targetPos, 0.15f));
-                    }
-                }
-                else
-                {
-                    if (Vector3.Distance(targetPos, hit.point) >= footStepDistance * 2)
-                    {
-                        tempPos = targetPos;
-                        targetPos = hit.point + new Vector3(0, offsetPos.y, 0);
-                        targetRot = Quaternion.LookRotation(Vector3.Cross(root.right, hit.normal)) * offsetRot;
-
-                        currentCoroutine = StartCoroutine(Walk(tempPos, targetPos, 0.15f));
+                            currentCoroutine = StartCoroutine(Walk(tempPos, targetPos, 0.2f));
+                            root.GetComponent<ProceduralAnimationController>().currentLegCoroutine = currentCoroutine;
+                            root.GetComponent<ProceduralAnimationController>().frontFoot = transform;
+                        }
                     }
                 }
             }
@@ -91,8 +96,6 @@ public class IKFootSolver : MonoBehaviour
             tempPos = targetPos;
             targetPos = originPos;
             targetRot = originRot;
-
-            isFirstStep = true;
         }
 
         if (currentCoroutine == null)
@@ -119,6 +122,7 @@ public class IKFootSolver : MonoBehaviour
         }
 
         currentCoroutine = null;
+        root.GetComponent<ProceduralAnimationController>().currentLegCoroutine = null;
     }
 
     private void OnDrawGizmos()
