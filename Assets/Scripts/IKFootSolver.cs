@@ -32,6 +32,7 @@ public class IKFootSolver : MonoBehaviour
     private Quaternion targetRot;
 
     private Coroutine currentCoroutine;
+    private ProceduralAnimationController rootControrller;
 
     private void Start()
     {
@@ -46,6 +47,8 @@ public class IKFootSolver : MonoBehaviour
 
         transform.position = targetPos;
         transform.rotation = targetRot;
+
+        rootControrller = root.GetComponent<ProceduralAnimationController>();
     }
 
     // Update is called once per frame
@@ -58,37 +61,37 @@ public class IKFootSolver : MonoBehaviour
         {
             Debug.DrawRay(targetPos, hit.point - targetPos, Color.blue);
 
-            if (root.GetComponent<ProceduralAnimationController>().currentLegCoroutine == null && currentCoroutine == null)
+            if (rootControrller.currentLegCoroutine == null && currentCoroutine == null)
             {
-                //if (root.GetComponent<ProceduralAnimationController>().isWalk)
-                //{
-                    if (root.GetComponent<ProceduralAnimationController>().frontFoot != transform)
+                if (root.GetComponent<Rigidbody>().velocity.magnitude > 0.1f)
+                {
+                    if (rootControrller.frontFoot != transform)
                     {
-                        if (root.GetComponent<ProceduralAnimationController>().frontFoot != null)
+                        if (rootControrller.frontFoot != null)
                         {
-                            if (Vector3.Dot(root.forward, (root.GetComponent<ProceduralAnimationController>().frontFoot.position - body.position).normalized) < 0f)
+                            if (Vector3.Dot(root.forward, (rootControrller.frontFoot.position - body.position).normalized) < 0f)
                             {
                                 tempPos = targetPos;
                                 targetPos = hit.point + new Vector3(0, offsetPos.y, 0);
                                 targetRot = Quaternion.LookRotation(Vector3.Cross(root.right, hit.normal)) * offsetRot;
 
                                 currentCoroutine = StartCoroutine(Walk(tempPos, targetPos, 0.2f));
-                                root.GetComponent<ProceduralAnimationController>().currentLegCoroutine = currentCoroutine;
-                                root.GetComponent<ProceduralAnimationController>().frontFoot = transform;
+                                rootControrller.currentLegCoroutine = currentCoroutine;
+                                rootControrller.frontFoot = transform;
                             }
                         }
-                        else if(root.GetComponent<ProceduralAnimationController>().isWalk)
+                        else if (rootControrller.isWalk)
                         {
                             tempPos = targetPos;
                             targetPos = hit.point + new Vector3(0, offsetPos.y, 0);
                             targetRot = Quaternion.LookRotation(Vector3.Cross(root.right, hit.normal)) * offsetRot;
 
                             currentCoroutine = StartCoroutine(Walk(tempPos, targetPos, 0.2f));
-                            root.GetComponent<ProceduralAnimationController>().currentLegCoroutine = currentCoroutine;
-                            root.GetComponent<ProceduralAnimationController>().frontFoot = transform;
+                            rootControrller.currentLegCoroutine = currentCoroutine;
+                            rootControrller.frontFoot = transform;
                         }
                     }
-                //}
+                }
             }
         }
         else
