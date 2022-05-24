@@ -63,7 +63,7 @@ public class IKFootSolver : MonoBehaviour
 
             if (rootControrller.currentLegCoroutine == null && currentCoroutine == null)
             {
-                if (root.GetComponent<Rigidbody>().velocity.magnitude > 0.1f)
+                if (root.GetComponent<Rigidbody>().velocity.magnitude > 0f)
                 {
                     if (rootControrller.frontFoot != transform)
                     {
