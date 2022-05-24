@@ -59,7 +59,7 @@ public class ProceduralAnimationController : MonoBehaviour
         }
         else
         {
-            rigid.velocity = Vector3.Lerp(rigid.velocity, Vector3.zero, Time.deltaTime * 10);
+            rigid.velocity = Vector3.Lerp(rigid.velocity, Vector3.zero, Time.deltaTime * 9);
         }
     }
 
