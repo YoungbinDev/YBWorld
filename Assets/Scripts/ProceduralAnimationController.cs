@@ -11,6 +11,8 @@ public class ProceduralAnimationController : MonoBehaviour
     public Transform frontFoot;
     [SerializeField] private float stepHeight;
     public Vector3 centerOfMass;
+    [SerializeField] private IKFootSolver leftFootIK;
+    [SerializeField] private IKFootSolver rightFootIK;
 
     private Vector3 targetPos;
     private Vector3 offsetPos;
