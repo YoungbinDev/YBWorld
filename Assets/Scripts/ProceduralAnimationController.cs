@@ -11,8 +11,8 @@ public class ProceduralAnimationController : MonoBehaviour
     public Transform frontFoot;
     [SerializeField] private float stepHeight;
     public Vector3 centerOfMass;
-    [SerializeField] private IKFootSolver leftFootIK;
-    [SerializeField] private IKFootSolver rightFootIK;
+    public float footStepDistance;
+    [SerializeField] private float walkSpeed;
 
     private Vector3 targetPos;
     private Vector3 offsetPos;
@@ -27,6 +27,7 @@ public class ProceduralAnimationController : MonoBehaviour
     public Coroutine currentLegCoroutine;
 
     public bool isWalk = false;
+    private Vector3 moveDirection;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +39,12 @@ public class ProceduralAnimationController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.W) && currentRootCoroutine == null && currentLegCoroutine == null)
+        float inputX = Input.GetAxis("Horizontal");
+        float inputY = Input.GetAxis("Vertical");
+
+        moveDirection = new Vector3(inputX, 0, inputY);
+
+        if (Input.GetKey(KeyCode.W) && currentRootCoroutine == null)
         {
             isWalk = true;
             //this.transform.Translate(this.transform.forward * Time.deltaTime);
@@ -57,7 +63,7 @@ public class ProceduralAnimationController : MonoBehaviour
     {
         if(isWalk)
         {
-            rigid.velocity = Vector3.Lerp(rigid.velocity, rigid.velocity + transform.forward, Time.deltaTime * 10);
+            rigid.velocity = Vector3.Lerp(rigid.velocity, moveDirection * walkSpeed, Time.deltaTime * 10);
         }
         else
         {
@@ -68,8 +74,8 @@ public class ProceduralAnimationController : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        Ray ray = new Ray(transform.position + offsetPos + transform.forward * 0.3f , Vector3.down);
-        Debug.DrawRay(transform.position + offsetPos + transform.forward * 0.3f, Vector3.down);
+        Ray ray = new Ray(transform.position + offsetPos + rigid.velocity * footStepDistance , Vector3.down);
+        Debug.DrawRay(transform.position + offsetPos + rigid.velocity * footStepDistance, Vector3.down);
 
         float test1 = Vector3.Dot(transform.forward, (leftFootTarget.position - transform.position).normalized);
         float test2 = Vector3.Dot(transform.forward, (rightFootTarget.position - transform.position).normalized);

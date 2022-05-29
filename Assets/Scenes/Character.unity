@@ -790,7 +790,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2441758870655508745, guid: f687252b861c9df4a931f0c13ac32c8b, type: 3}
       propertyPath: footStepDistance
-      value: 0.38
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2441758871573871626, guid: f687252b861c9df4a931f0c13ac32c8b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2441758871581150860, guid: f687252b861c9df4a931f0c13ac32c8b, type: 3}
       propertyPath: m_Name
@@ -802,7 +806,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2441758871581577900, guid: f687252b861c9df4a931f0c13ac32c8b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.1629643
+      value: 3.64
       objectReference: {fileID: 0}
     - target: {fileID: 2441758871581577900, guid: f687252b861c9df4a931f0c13ac32c8b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -850,12 +854,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2441758871642860287, guid: f687252b861c9df4a931f0c13ac32c8b, type: 3}
       propertyPath: footStepDistance
-      value: 0.38
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 2441758872656279306, guid: f687252b861c9df4a931f0c13ac32c8b, type: 3}
       propertyPath: body
       value: 
       objectReference: {fileID: 1660910374}
+    - target: {fileID: 2441758872656279306, guid: f687252b861c9df4a931f0c13ac32c8b, type: 3}
+      propertyPath: walkSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2441758872656279306, guid: f687252b861c9df4a931f0c13ac32c8b, type: 3}
       propertyPath: stepHeight
       value: 0.15
@@ -868,6 +876,10 @@ PrefabInstance:
       propertyPath: rightFootTarget
       value: 
       objectReference: {fileID: 1651092526}
+    - target: {fileID: 2441758872656279306, guid: f687252b861c9df4a931f0c13ac32c8b, type: 3}
+      propertyPath: footStepDistance
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 2441758872656279306, guid: f687252b861c9df4a931f0c13ac32c8b, type: 3}
       propertyPath: terrainLayer.m_Bits
       value: 64
