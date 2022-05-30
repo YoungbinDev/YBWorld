@@ -8,6 +8,7 @@ public class ProceduralAnimationController : MonoBehaviour
     [SerializeField] private Transform body;
     [SerializeField] private Transform leftFootTarget;
     [SerializeField] private Transform rightFootTarget;
+    public Transform backFoot;
     public Transform frontFoot;
     [SerializeField] private float stepHeight;
     public Vector3 centerOfMass;
@@ -35,6 +36,7 @@ public class ProceduralAnimationController : MonoBehaviour
         offsetPos = body.transform.position - transform.position;
         anim = this.GetComponent<Animator>();
         rigid = this.GetComponent<Rigidbody>();
+        centerOfMass = transform.position;
     }
 
     private void Update()
@@ -43,32 +45,29 @@ public class ProceduralAnimationController : MonoBehaviour
         float inputY = Input.GetAxis("Vertical");
 
         moveDirection = new Vector3(inputX, 0, inputY);
+        centerOfMass = ((leftFootTarget.position + rightFootTarget.position) / 2) - leftFootTarget.GetComponent<IKFootSolver>().offsetPos;
 
-        if (Input.GetKey(KeyCode.W) && currentRootCoroutine == null)
+        if (Input.GetKey(KeyCode.W))
         {
-            isWalk = true;
-            //this.transform.Translate(this.transform.forward * Time.deltaTime);
+            if(currentRootCoroutine == null)
+                isWalk = true;
         }
-        else
+        else if(isWalk)
         {
             isWalk = false;
-        }
 
-        centerOfMass = (leftFootTarget.position + rightFootTarget.position + body.position) / 3;
+            backFoot = frontFoot == leftFootTarget ? rightFootTarget : leftFootTarget;
+
+            if (backFoot != null)
+            {
+                if(backFoot.GetComponent<IKFootSolver>().currentCoroutine != null)
+                    StopCoroutine(backFoot.GetComponent<IKFootSolver>().currentCoroutine);
+
+                backFoot.GetComponent<IKFootSolver>().currentCoroutine = StartCoroutine(backFoot.GetComponent<IKFootSolver>().Walk(backFoot.transform.position, frontFoot.position, 0.2f));
+            }
+        }
 
         anim.SetBool("isWalk", isWalk);
-    }
-
-    private void FixedUpdate()
-    {
-        if(isWalk)
-        {
-            rigid.velocity = Vector3.Lerp(rigid.velocity, moveDirection * walkSpeed, Time.deltaTime * 10);
-        }
-        else
-        {
-            rigid.velocity = Vector3.Lerp(rigid.velocity, Vector3.zero, Time.deltaTime * 9);
-        }
     }
 
     // Update is called once per frame
@@ -120,6 +119,17 @@ public class ProceduralAnimationController : MonoBehaviour
                     }
                 }
             }
+        }
+
+        if (isWalk)
+        {
+            rigid.velocity = Vector3.Lerp(rigid.velocity, moveDirection * walkSpeed, Time.deltaTime * 10);
+        }
+        else
+        {
+            rigid.velocity = Vector3.zero;
+            //rigid.velocity = Vector3.Lerp(rigid.velocity, Vector3.zero, Time.deltaTime * 9);
+            transform.position = Vector3.Lerp(transform.position, frontFoot.position - leftFootTarget.GetComponent<IKFootSolver>().offsetPos, Time.deltaTime * 5);
         }
     }
 

@@ -30,13 +30,13 @@ public class IKFootSolver : MonoBehaviour
     private Quaternion originRot;
     private Quaternion targetRot;
 
-    private Coroutine currentCoroutine;
+    public Coroutine currentCoroutine;
     private ProceduralAnimationController rootControrller;
 
     private void Start()
     {
-        originPos = foot.localPosition;
-        targetPos = foot.TransformPoint(originPos);
+        originPos = foot.position;
+        targetPos = originPos;
 
         originRot = foot.rotation;
         targetRot = originRot;
@@ -53,8 +53,8 @@ public class IKFootSolver : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        Ray ray = new Ray(body.position + root.rotation * root.GetComponent<Rigidbody>().velocity * root.GetComponent<ProceduralAnimationController>().footStepDistance, Vector3.down);
-        Debug.DrawRay(body.position + root.rotation * root.GetComponent<Rigidbody>().velocity * root.GetComponent<ProceduralAnimationController>().footStepDistance, Vector3.down, Color.red);
+        Ray ray = new Ray(body.position + root.rotation * root.GetComponent<Rigidbody>().velocity * rootControrller.footStepDistance, Vector3.down);
+        Debug.DrawRay(body.position + root.rotation * root.GetComponent<Rigidbody>().velocity * rootControrller.footStepDistance, Vector3.down, Color.red);
 
         if (Physics.Raycast(ray, out RaycastHit hit, 3f, terrainLayer.value))
         {
@@ -62,12 +62,24 @@ public class IKFootSolver : MonoBehaviour
 
             if (rootControrller.currentLegCoroutine == null && currentCoroutine == null)
             {
-
-                if (rootControrller.frontFoot != transform)
+                if (rootControrller.isWalk)
                 {
-                    if (rootControrller.frontFoot != null)
+                    if (rootControrller.frontFoot != transform)
                     {
-                        if (Vector3.Dot(root.forward, (rootControrller.frontFoot.position - body.position).normalized) < 0f)
+                        if (rootControrller.frontFoot != null)
+                        {
+                            if (Vector3.Dot(root.forward, (rootControrller.frontFoot.position - body.position).normalized) < 0f)
+                            {
+                                tempPos = targetPos;
+                                targetPos = hit.point + new Vector3(0, offsetPos.y, 0);
+                                targetRot = Quaternion.LookRotation(Vector3.Cross(root.right, hit.normal)) * offsetRot;
+
+                                currentCoroutine = StartCoroutine(Walk(tempPos, targetPos, 0.2f));
+                                rootControrller.currentLegCoroutine = currentCoroutine;
+                                rootControrller.frontFoot = transform;
+                            }
+                        }
+                        else
                         {
                             tempPos = targetPos;
                             targetPos = hit.point + new Vector3(0, offsetPos.y, 0);
@@ -78,24 +90,13 @@ public class IKFootSolver : MonoBehaviour
                             rootControrller.frontFoot = transform;
                         }
                     }
-                    else
-                    {
-                        tempPos = targetPos;
-                        targetPos = hit.point + new Vector3(0, offsetPos.y, 0);
-                        targetRot = Quaternion.LookRotation(Vector3.Cross(root.right, hit.normal)) * offsetRot;
-
-                        currentCoroutine = StartCoroutine(Walk(tempPos, targetPos, 0.2f));
-                        rootControrller.currentLegCoroutine = currentCoroutine;
-                        rootControrller.frontFoot = transform;
-                    }
                 }
-
             }
         }
         else
         {
             tempPos = targetPos;
-            targetPos = foot.TransformPoint(originPos);
+            targetPos = originPos;
             targetRot = originRot;
         }
 
@@ -106,8 +107,9 @@ public class IKFootSolver : MonoBehaviour
         }
     }
 
-    IEnumerator Walk(Vector3 currentPos, Vector3 targetPos, float timeToEnd)
+    public IEnumerator Walk(Vector3 currentPos, Vector3 targetPos, float timeToEnd)
     {
+        this.targetPos = targetPos;
         float currentTime = 0;
 
         while (currentTime <= 1)
