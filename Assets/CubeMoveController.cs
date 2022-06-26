@@ -17,7 +17,7 @@ public class CubeMoveController : MonoBehaviour
     {
         rigid = this.GetComponent<Rigidbody>();
 
-        time = Mathf.Sqrt(2 * displacement);
+        time = Mathf.Sqrt((2 * displacement) / -acceleration);
         initialVelocity = (displacement / time) - ((acceleration * time) / 2);
     }
 
@@ -26,7 +26,7 @@ public class CubeMoveController : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            time = Mathf.Sqrt(2 * displacement);
+            time = Mathf.Sqrt((2 * displacement) / -acceleration);
             initialVelocity = (displacement / time) - ((acceleration * time) / 2);
             rigid.AddForce(new Vector3(0, initialVelocity, 0), ForceMode.Impulse);
         }
