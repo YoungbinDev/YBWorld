@@ -11,7 +11,7 @@ public class ProjectileThrower : MonoBehaviour
     [SerializeField] private float initialVelocityX;
     [SerializeField] private float initialVelocityY;
     [SerializeField] private float initialVelocityZ;
-    [SerializeField] private float time = 1.0f;
+    [SerializeField] private float time = 0.0f;
 
     // Update is called once per frame
     void Update()
@@ -28,8 +28,12 @@ public class ProjectileThrower : MonoBehaviour
 
     Vector3 CalculateVelocity(Vector3 startPos, Vector3 endPos)
     {
-        //거리별 시간 정하기
-        time = (target.position - transform.position).magnitude / 8;
+        if (time == 0.0f)
+        {
+            //거리별 시간 정하기
+            time = (target.position - transform.position).magnitude / 8;
+        }
+
         acceleration = GameManager.Instance.weatherManager.worldAcceleration;
 
         Vector3 distance = endPos - startPos;
