@@ -13,7 +13,6 @@ public class ProjectileThrower : MonoBehaviour
     [SerializeField] private float initialVelocityZ;
     [SerializeField] private float time = 1.0f;
 
-
     // Update is called once per frame
     void Update()
     {
@@ -21,18 +20,18 @@ public class ProjectileThrower : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                //거리별 시간 정하기
-                time = (target.position - transform.position).magnitude / 8;
-
                 GameObject temp = Instantiate(projectile, transform.position, Quaternion.identity);
                 temp.GetComponent<Rigidbody>().AddForce(CalculateVelocity(transform.position, target.position), ForceMode.Impulse);
-                temp.GetComponent<Projectile>().Init(target, acceleration);
             }
         }
     }
 
     Vector3 CalculateVelocity(Vector3 startPos, Vector3 endPos)
     {
+        //거리별 시간 정하기
+        time = (target.position - transform.position).magnitude / 8;
+        acceleration = GameManager.Instance.weatherManager.worldAcceleration;
+
         Vector3 distance = endPos - startPos;
 
         initialVelocityX = distance.x / time - (acceleration.x * time) / 2;

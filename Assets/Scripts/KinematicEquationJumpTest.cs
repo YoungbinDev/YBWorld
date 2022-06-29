@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//Ignore World Acceleration
 public class KinematicEquationJumpTest : MonoBehaviour
 {
     [SerializeField] private float displacement;
