@@ -11,7 +11,7 @@ public class ProjectileThrower : MonoBehaviour
     [SerializeField] private float initialVelocityX;
     [SerializeField] private float initialVelocityY;
     [SerializeField] private float initialVelocityZ;
-    [SerializeField] private float time;
+    [SerializeField] private float time = 1.0f;
 
 
     // Update is called once per frame
@@ -21,9 +21,12 @@ public class ProjectileThrower : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                //거리별 시간 정하기
+                time = (target.position - transform.position).magnitude / 8;
+
                 GameObject temp = Instantiate(projectile, transform.position, Quaternion.identity);
                 temp.GetComponent<Rigidbody>().AddForce(CalculateVelocity(transform.position, target.position), ForceMode.Impulse);
-                temp.GetComponent<Projectile>().target = target;
+                temp.GetComponent<Projectile>().Init(target, acceleration);
             }
         }
     }

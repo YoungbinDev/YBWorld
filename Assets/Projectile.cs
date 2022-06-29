@@ -4,28 +4,18 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] private float time;
+    private Transform target;
+    private Vector3 acceleration;
+    private Rigidbody rigid => this.GetComponent<Rigidbody>();
 
-    private bool isArrived = false;
-
-    public Transform target;
-
-    // Update is called once per frame
-    void Update()
+    public void Init(Transform target, Vector3 acceleration)
     {
-        if(!isArrived)
-        {
-            time += Time.deltaTime;
-        }
+        this.target = target;
+        this.acceleration = acceleration;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void FixedUpdate()
     {
-        if(!isArrived && other.transform == target)
-        {
-            isArrived = true;
-
-            this.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        }
+        rigid.AddForce(acceleration);
     }
 }

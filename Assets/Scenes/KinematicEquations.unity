@@ -247,7 +247,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 312793106}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -654,7 +654,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 312793110}
   projectile: {fileID: 4480564791860345112, guid: b7a702eef219d7e46b373c1d5b72335e, type: 3}
-  acceleration: {x: -10, y: -9.8, z: 0}
+  acceleration: {x: 0, y: -9.8, z: 0}
   initialVelocityX: 0
   initialVelocityY: 0
   initialVelocityZ: 0
