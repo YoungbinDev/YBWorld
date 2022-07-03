@@ -6,12 +6,24 @@ public class WeatherManager : MonoBehaviour
 {
     public Wind wind;
 
-    public Vector3 worldAcceleration;
+    [Header("World")]
+    [ReadOnly] public Vector3 worldAcceleration;
+
+    [Header("Wind")]
+    public Vector3 windAcceleration;
 
     public void Init()
     {
         wind = GetComponentInChildren<Wind>();
+        windAcceleration = wind.acceleration;
 
-        worldAcceleration = Physics.gravity + wind.acceleration;
+        if (wind != null)
+            worldAcceleration = Physics.gravity + windAcceleration;
+    }
+
+    private void Update()
+    {
+        if(wind != null)
+            worldAcceleration = Physics.gravity + windAcceleration;
     }
 }

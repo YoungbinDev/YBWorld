@@ -720,8 +720,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d232d044492c3f947944ebbc461f1196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wind: {fileID: 0}
+  wind: {fileID: 1895955938}
   worldAcceleration: {x: 0, y: 0, z: 0}
+  windAcceleration: {x: 0, y: 0, z: 0}
 --- !u!1 &1248615080
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,7 +752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f1953a38af9b8d4599403bdef1d6af1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weatherManager: {fileID: 0}
+  weatherManager: {fileID: 981549049}
 --- !u!4 &1248615082
 Transform:
   m_ObjectHideFlags: 0
@@ -1024,7 +1025,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77b8a1d39bd36d149bb2ae7e1201d02b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: {x: -10, y: 0, z: 10}
+  acceleration: {x: 0, y: 0, z: 0}
 --- !u!4 &1895955939
 Transform:
   m_ObjectHideFlags: 0
