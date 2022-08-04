@@ -2,7 +2,7 @@
     "name": "PlayerInputActions",
     "maps": [
         {
-            "name": "TPSPlayer",
+            "name": "Player",
             "id": "7dc812d5-66bb-4f84-9661-4c9a07aa9c8e",
             "actions": [
                 {
@@ -22,7 +22,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Sprint",
+                    "name": "Run",
                     "type": "Button",
                     "id": "c49e43a8-4ebf-4705-b0b1-76f6121127d4",
                     "expectedControlType": "Button",
@@ -48,7 +48,7 @@
                     "path": "<XInputController>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Xbox Controller",
+                    "groups": "XboxController",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -60,7 +60,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Sprint",
+                    "action": "Run",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -70,8 +70,8 @@
                     "path": "<XInputController>/buttonEast",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Xbox Controller",
-                    "action": "Sprint",
+                    "groups": "XboxController",
+                    "action": "Run",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -136,7 +136,7 @@
                     "path": "<XInputController>/leftStick",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Xbox Controller",
+                    "groups": "XboxController",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -157,8 +157,8 @@
             ]
         },
         {
-            "name": "Xbox Controller",
-            "bindingGroup": "Xbox Controller",
+            "name": "XboxController",
+            "bindingGroup": "XboxController",
             "devices": [
                 {
                     "devicePath": "<XInputController>",

@@ -15,7 +15,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     ""name"": ""PlayerInputActions"",
     ""maps"": [
         {
-            ""name"": ""TPSPlayer"",
+            ""name"": ""Player"",
             ""id"": ""7dc812d5-66bb-4f84-9661-4c9a07aa9c8e"",
             ""actions"": [
                 {
@@ -35,7 +35,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Sprint"",
+                    ""name"": ""Run"",
                     ""type"": ""Button"",
                     ""id"": ""c49e43a8-4ebf-4705-b0b1-76f6121127d4"",
                     ""expectedControlType"": ""Button"",
@@ -73,7 +73,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""Sprint"",
+                    ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -84,7 +84,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Xbox Controller"",
-                    ""action"": ""Sprint"",
+                    ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -182,11 +182,11 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         }
     ]
 }");
-        // TPSPlayer
-        m_TPSPlayer = asset.FindActionMap("TPSPlayer", throwIfNotFound: true);
-        m_TPSPlayer_Movement = m_TPSPlayer.FindAction("Movement", throwIfNotFound: true);
-        m_TPSPlayer_Jump = m_TPSPlayer.FindAction("Jump", throwIfNotFound: true);
-        m_TPSPlayer_Sprint = m_TPSPlayer.FindAction("Sprint", throwIfNotFound: true);
+        // Player
+        m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
+        m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
+        m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -233,39 +233,39 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         asset.Disable();
     }
 
-    // TPSPlayer
-    private readonly InputActionMap m_TPSPlayer;
-    private ITPSPlayerActions m_TPSPlayerActionsCallbackInterface;
-    private readonly InputAction m_TPSPlayer_Movement;
-    private readonly InputAction m_TPSPlayer_Jump;
-    private readonly InputAction m_TPSPlayer_Sprint;
-    public struct TPSPlayerActions
+    // Player
+    private readonly InputActionMap m_Player;
+    private IPlayerActions m_PlayerActionsCallbackInterface;
+    private readonly InputAction m_Player_Movement;
+    private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_Run;
+    public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
-        public TPSPlayerActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Movement => m_Wrapper.m_TPSPlayer_Movement;
-        public InputAction @Jump => m_Wrapper.m_TPSPlayer_Jump;
-        public InputAction @Sprint => m_Wrapper.m_TPSPlayer_Sprint;
-        public InputActionMap Get() { return m_Wrapper.m_TPSPlayer; }
+        public PlayerActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Movement => m_Wrapper.m_Player_Movement;
+        public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputAction @Run => m_Wrapper.m_Player_Run;
+        public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(TPSPlayerActions set) { return set.Get(); }
-        public void SetCallbacks(ITPSPlayerActions instance)
+        public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
+        public void SetCallbacks(IPlayerActions instance)
         {
-            if (m_Wrapper.m_TPSPlayerActionsCallbackInterface != null)
+            if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
             {
-                @Movement.started -= m_Wrapper.m_TPSPlayerActionsCallbackInterface.OnMovement;
-                @Movement.performed -= m_Wrapper.m_TPSPlayerActionsCallbackInterface.OnMovement;
-                @Movement.canceled -= m_Wrapper.m_TPSPlayerActionsCallbackInterface.OnMovement;
-                @Jump.started -= m_Wrapper.m_TPSPlayerActionsCallbackInterface.OnJump;
-                @Jump.performed -= m_Wrapper.m_TPSPlayerActionsCallbackInterface.OnJump;
-                @Jump.canceled -= m_Wrapper.m_TPSPlayerActionsCallbackInterface.OnJump;
-                @Sprint.started -= m_Wrapper.m_TPSPlayerActionsCallbackInterface.OnSprint;
-                @Sprint.performed -= m_Wrapper.m_TPSPlayerActionsCallbackInterface.OnSprint;
-                @Sprint.canceled -= m_Wrapper.m_TPSPlayerActionsCallbackInterface.OnSprint;
+                @Movement.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
+                @Movement.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
+                @Movement.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
+                @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Run.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRun;
+                @Run.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRun;
+                @Run.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRun;
             }
-            m_Wrapper.m_TPSPlayerActionsCallbackInterface = instance;
+            m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @Movement.started += instance.OnMovement;
@@ -274,13 +274,13 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
-                @Sprint.started += instance.OnSprint;
-                @Sprint.performed += instance.OnSprint;
-                @Sprint.canceled += instance.OnSprint;
+                @Run.started += instance.OnRun;
+                @Run.performed += instance.OnRun;
+                @Run.canceled += instance.OnRun;
             }
         }
     }
-    public TPSPlayerActions @TPSPlayer => new TPSPlayerActions(this);
+    public PlayerActions @Player => new PlayerActions(this);
     private int m_KeyboardSchemeIndex = -1;
     public InputControlScheme KeyboardScheme
     {
@@ -299,10 +299,10 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
             return asset.controlSchemes[m_XboxControllerSchemeIndex];
         }
     }
-    public interface ITPSPlayerActions
+    public interface IPlayerActions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-        void OnSprint(InputAction.CallbackContext context);
+        void OnRun(InputAction.CallbackContext context);
     }
 }
