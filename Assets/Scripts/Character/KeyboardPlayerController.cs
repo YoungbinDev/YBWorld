@@ -29,7 +29,7 @@ public class KeyboardPlayerController : PlayerController
 
     private void FixedUpdate()
     {
-        lerpRef = Mathf.Clamp(lerpRef + (isMove == true ? Time.deltaTime : -Time.deltaTime) * timeToMaxSpeed, 0, 1);
+        lerpRef = Mathf.Clamp(lerpRef + (isMove == true ? Time.deltaTime : -Time.deltaTime) / timeToMaxSpeed, 0, 1);
         anim.SetFloat("vertical", Mathf.Lerp(0, 1, lerpRef));
     }
 }
