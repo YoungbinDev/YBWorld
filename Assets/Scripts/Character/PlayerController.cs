@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
         input.actions["Run"].performed -= Run;
     }
 
-    public void Movement(InputAction.CallbackContext context)
+    public virtual void Movement(InputAction.CallbackContext context)
     {
         moveVec = context.ReadValue<Vector2>();
         isMove = moveVec.magnitude != 0;
