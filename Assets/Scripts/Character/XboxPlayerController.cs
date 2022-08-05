@@ -20,14 +20,18 @@ public class XboxPlayerController : PlayerController
 
     private void FixedUpdate()
     {
+
         if (isMove)
-            anim.SetFloat("vertical", Mathf.Lerp(anim.GetFloat("vertical"), moveVec.magnitude * 1.5f, Time.deltaTime * timeToMaxAnimSpeed));
+            anim.SetFloat("vertical", Mathf.Lerp(anim.GetFloat("vertical"), moveVec.magnitude * 1, Time.deltaTime * timeToMaxAnimSpeed));
         else
         {
             anim.SetFloat("vertical", Mathf.Lerp(anim.GetFloat("vertical"), 0, Time.deltaTime * timeToMaxAnimSpeed * 2));
 
-            //if (anim.GetFloat("vertical") < 0.05f)
-            //    anim.SetFloat("vertical", 0);
+            if (anim.GetFloat("vertical") < 0.3f)
+            {
+                firstStep = true;
+                anim.ResetTrigger("StartWalking");
+            }
         }
 
         anim.SetBool("isMove", isMove);
@@ -40,17 +44,25 @@ public class XboxPlayerController : PlayerController
         rootPos += new Vector3(0, 0, anim.deltaPosition.z);
     }
 
+    public bool firstStep = true;
+
     public override void Movement(InputAction.CallbackContext context)
     {
         base.Movement(context);
 
-        if(context.canceled)
+        if(context.performed)
+        {
+            if (firstStep)
+            {
+                firstStep = false;
+                anim.ResetTrigger("StopWalking");
+                anim.SetTrigger("StartWalking");
+            }
+        }
+
+        if (context.canceled)
         {
             anim.SetTrigger("StopWalking");
-        }
-        else
-        {
-            anim.ResetTrigger("StopWalking");
         }
     }
 
