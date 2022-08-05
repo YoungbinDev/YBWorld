@@ -20,11 +20,11 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Movement"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""2125e221-5bb7-4cb8-825f-a22878df43a2"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
-                    ""interactions"": ""Press(behavior=2)""
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""Jump"",
@@ -61,7 +61,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""path"": ""<XInputController>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Xbox Controller"",
+                    ""groups"": ""XboxController"",
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -83,7 +83,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""path"": ""<XInputController>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Xbox Controller"",
+                    ""groups"": ""XboxController"",
                     ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -149,7 +149,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""path"": ""<XInputController>/leftStick"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Xbox Controller"",
+                    ""groups"": ""XboxController"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -170,8 +170,8 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
             ]
         },
         {
-            ""name"": ""Xbox Controller"",
-            ""bindingGroup"": ""Xbox Controller"",
+            ""name"": ""XboxController"",
+            ""bindingGroup"": ""XboxController"",
             ""devices"": [
                 {
                     ""devicePath"": ""<XInputController>"",
@@ -295,7 +295,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     {
         get
         {
-            if (m_XboxControllerSchemeIndex == -1) m_XboxControllerSchemeIndex = asset.FindControlSchemeIndex("Xbox Controller");
+            if (m_XboxControllerSchemeIndex == -1) m_XboxControllerSchemeIndex = asset.FindControlSchemeIndex("XboxController");
             return asset.controlSchemes[m_XboxControllerSchemeIndex];
         }
     }

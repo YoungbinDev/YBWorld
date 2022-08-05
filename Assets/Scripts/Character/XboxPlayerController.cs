@@ -1,35 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class XboxPlayerController : PlayerController
 {
-    [SerializeField] private float timeToMaxSpeed = 1.5f;
-    private float lerpRef = 0;
-
-    private void OnEnable()
-    {
-        AddInputAction();
-    }
-
-    private void OnDisable()
-    {
-        RemoveInputAction();
-    }
-
     private void Start()
     {
-        Init();
+        SettingComponent();
     }
 
-    protected override void Init()
+    protected override void SettingComponent()
     {
-        base.Init();
+        base.SettingComponent();
+
+        rootPos = transform.position;
     }
 
     private void FixedUpdate()
     {
-        lerpRef = Mathf.Clamp(lerpRef + (isMove == true ? Time.deltaTime : -Time.deltaTime) / timeToMaxSpeed, 0, 1);
-        anim.SetFloat("vertical", Mathf.Lerp(0, 1, lerpRef));
+        
+        anim.SetFloat("vertical", Mathf.Lerp(anim.GetFloat("vertical"), moveVec.magnitude, Time.deltaTime * 5));
+
+        if (!isMove)
+        {
+            if (anim.GetFloat("vertical") < 0.05f)
+                anim.SetFloat("vertical", 0);
+        }
+
+        rigid.MovePosition(rootPos);
+    }
+
+    private void OnAnimatorMove()
+    {
+        rootPos += anim.deltaPosition;
     }
 }

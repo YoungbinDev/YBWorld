@@ -4,32 +4,32 @@ using UnityEngine;
 
 public class KeyboardPlayerController : PlayerController
 {
-    [SerializeField] private float timeToMaxSpeed = 1.0f;
-    private float lerpRef = 0;
-
-    private void OnEnable()
-    {
-        AddInputAction();
-    }
-
-    private void OnDisable()
-    {
-        RemoveInputAction();
-    }
-
     private void Start()
     {
-        Init();
+        SettingComponent();
     }
 
-    protected override void Init()
+    protected override void SettingComponent()
     {
-        base.Init();
+        base.SettingComponent();
+
+        rootPos = transform.position;
     }
 
     private void FixedUpdate()
     {
-        lerpRef = Mathf.Clamp(lerpRef + (isMove == true ? Time.deltaTime : -Time.deltaTime) / timeToMaxSpeed, 0, 1);
-        anim.SetFloat("vertical", Mathf.Lerp(0, 1, lerpRef));
+        Vector3 moveDir = new Vector3(moveVec.x, 0, moveVec.y).normalized;
+        moveDir = cam.transform.TransformDirection(moveDir);
+
+        if(isMove)
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveDir), Time.deltaTime * 10);
+
+
+        rigid.MovePosition(rootPos);
+    }
+
+    private void OnAnimatorMove()
+    {
+        rootPos += anim.deltaPosition;
     }
 }
