@@ -14,34 +14,55 @@ public class XboxPlayerController : PlayerController
     protected override void SettingComponent()
     {
         base.SettingComponent();
-
-        rootPos = transform.position;
     }
 
     private void FixedUpdate()
     {
+        Vector3 forward = cam.transform.forward;
+        Vector3 right = cam.transform.right;
 
-        if (isMove)
-            anim.SetFloat("vertical", Mathf.Lerp(anim.GetFloat("vertical"), moveVec.magnitude * 1, Time.deltaTime * timeToMaxAnimSpeed));
+        forward.y = 0; right.y = 0;
+
+        forward.Normalize();
+        right.Normalize();
+        
+        if (isInput)
+        {
+            moveDir = (forward * inputVec.y + right * inputVec.x).normalized;
+
+            isMove = true;
+            anim.SetFloat("vertical", Mathf.MoveTowards(anim.GetFloat("vertical"), inputVec.magnitude, Time.deltaTime * timeToMaxAnimSpeed));
+        }
         else
         {
-            anim.SetFloat("vertical", Mathf.Lerp(anim.GetFloat("vertical"), 0, Time.deltaTime * timeToMaxAnimSpeed * 2));
-
-            if (anim.GetFloat("vertical") < 0.3f)
+            if (!firstStep)
             {
-                firstStep = true;
-                anim.ResetTrigger("StartWalking");
+                if (anim.GetFloat("vertical") > 0.8f)
+                {
+                    anim.SetFloat("vertical", Mathf.MoveTowards(anim.GetFloat("vertical"), 1.5f, Time.deltaTime * timeToMaxAnimSpeed / 2));
+
+                    if(anim.GetFloat("vertical") > 1.45f)
+                    {
+                        isMove = false;
+                    }
+                }
+                else
+                {
+                    isMove = false;
+                }
             }
         }
 
         anim.SetBool("isMove", isMove);
 
-        rigid.MovePosition(rootPos);
+        rigid.MoveRotation(Quaternion.Lerp(rigid.rotation, Quaternion.LookRotation(moveDir), Time.deltaTime * 5));
+        rigid.MovePosition(rigid.position + moveVec);
+        moveVec = Vector3.zero;
     }
 
     private void OnAnimatorMove()
     {
-        rootPos += new Vector3(0, 0, anim.deltaPosition.z);
+        moveVec += new Vector3(anim.deltaPosition.x, 0, anim.deltaPosition.z);
     }
 
     public bool firstStep = true;
@@ -55,14 +76,7 @@ public class XboxPlayerController : PlayerController
             if (firstStep)
             {
                 firstStep = false;
-                anim.ResetTrigger("StopWalking");
-                anim.SetTrigger("StartWalking");
             }
-        }
-
-        if (context.canceled)
-        {
-            anim.SetTrigger("StopWalking");
         }
     }
 

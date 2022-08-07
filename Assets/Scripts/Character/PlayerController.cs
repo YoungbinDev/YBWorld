@@ -20,9 +20,11 @@ public class PlayerController : MonoBehaviour
     public float walkSpeed;
     public float runSpeed;
     public bool isRun;
+    public bool isInput;
     public bool isMove;
-    public Vector2 moveVec;
-    public Vector3 rootPos;
+    public Vector2 inputVec;
+    public Vector3 moveDir;
+    public Vector3 moveVec;
     public float timeToMaxAnimSpeed = 1.0f;
 
     protected Animator anim;
@@ -61,8 +63,8 @@ public class PlayerController : MonoBehaviour
 
     public virtual void Movement(InputAction.CallbackContext context)
     {
-        moveVec = context.ReadValue<Vector2>();
-        isMove = moveVec.magnitude != 0;
+        inputVec = context.ReadValue<Vector2>();
+        isInput = inputVec.magnitude != 0;
     }
 
     public void Run(InputAction.CallbackContext context)

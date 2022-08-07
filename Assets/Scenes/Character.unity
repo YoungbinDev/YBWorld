@@ -642,9 +642,11 @@ MonoBehaviour:
   walkSpeed: 0
   runSpeed: 0
   isRun: 0
+  isInput: 0
   isMove: 0
-  moveVec: {x: 0, y: 0}
-  rootPos: {x: 0, y: 0, z: 0}
+  inputVec: {x: 0, y: 0}
+  moveDir: {x: 0, y: 0, z: 0}
+  moveVec: {x: 0, y: 0, z: 0}
   timeToMaxAnimSpeed: 1
 --- !u!114 &1410514411
 MonoBehaviour:
@@ -660,14 +662,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputDevice: 2
   input: {fileID: 1410514409}
-  cam: {fileID: 0}
+  cam: {fileID: 625847583}
   walkSpeed: 0
   runSpeed: 0
   isRun: 0
+  isInput: 0
   isMove: 0
-  moveVec: {x: 0, y: 0}
-  rootPos: {x: 0, y: 0, z: 0}
+  inputVec: {x: 0, y: 0}
+  moveDir: {x: 0, y: 0, z: 0}
+  moveVec: {x: 0, y: 0, z: 0}
   timeToMaxAnimSpeed: 1
+  firstStep: 1
 --- !u!4 &1410514412 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5706258827001868897, guid: c144563f341acd94cb94a1f60f2f0f9a, type: 3}

@@ -13,23 +13,24 @@ public class KeyboardPlayerController : PlayerController
     {
         base.SettingComponent();
 
-        rootPos = transform.position;
+        moveVec = transform.position;
     }
 
     private void FixedUpdate()
     {
-        Vector3 moveDir = new Vector3(moveVec.x, 0, moveVec.y).normalized;
+        Vector3 moveDir = new Vector3(inputVec.x, 0, inputVec.y).normalized;
         moveDir = cam.transform.TransformDirection(moveDir);
 
         if(isMove)
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveDir), Time.deltaTime * 10);
 
 
-        rigid.MovePosition(rootPos);
+        rigid.MovePosition(moveVec);
+        moveVec = Vector3.zero;
     }
 
     private void OnAnimatorMove()
     {
-        rootPos += anim.deltaPosition;
+        moveVec += anim.deltaPosition;
     }
 }

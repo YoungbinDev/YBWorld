@@ -148,7 +148,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""id"": ""088e380e-37e0-4c0f-8d3a-721f8662d11f"",
                     ""path"": ""<XInputController>/leftStick"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""StickDeadzone"",
                     ""groups"": ""XboxController"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
