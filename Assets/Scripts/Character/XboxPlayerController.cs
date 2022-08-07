@@ -55,7 +55,9 @@ public class XboxPlayerController : PlayerController
 
         anim.SetBool("isMove", isMove);
 
-        rigid.MoveRotation(Quaternion.Lerp(rigid.rotation, Quaternion.LookRotation(moveDir), Time.deltaTime * 5));
+        if(moveDir != Vector3.zero)
+            rigid.MoveRotation(Quaternion.Lerp(rigid.rotation, Quaternion.LookRotation(moveDir), Time.deltaTime * 5));
+
         rigid.MovePosition(rigid.position + moveVec);
         moveVec = Vector3.zero;
     }
