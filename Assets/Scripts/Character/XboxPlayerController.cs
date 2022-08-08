@@ -32,8 +32,13 @@ public class XboxPlayerController : PlayerController
 
             isMove = true;
 
-            if(isRun)
-                anim.SetFloat("vertical", Mathf.MoveTowards(anim.GetFloat("vertical"), inputVec.magnitude * 1.5f, Time.deltaTime * timeToMaxAnimSpeed));
+            if (isRun)
+            {
+                if(anim.GetFloat("vertical") > 1.0f)
+                    anim.SetFloat("vertical", Mathf.MoveTowards(anim.GetFloat("vertical"), inputVec.magnitude * 1.5f, Time.deltaTime * timeToMaxAnimSpeed * 0.5f));
+                else
+                    anim.SetFloat("vertical", Mathf.MoveTowards(anim.GetFloat("vertical"), inputVec.magnitude * 1.5f, Time.deltaTime * timeToMaxAnimSpeed * 1.3f));
+            }
             else
                 anim.SetFloat("vertical", Mathf.MoveTowards(anim.GetFloat("vertical"), inputVec.magnitude, Time.deltaTime * timeToMaxAnimSpeed));
         }
@@ -43,9 +48,9 @@ public class XboxPlayerController : PlayerController
             {
                 if (anim.GetFloat("vertical") > 1.3f) //달리기 중이면
                 {
-                    anim.SetFloat("vertical", Mathf.MoveTowards(anim.GetFloat("vertical"), 2.0f, Time.deltaTime * timeToMaxAnimSpeed / 2));
+                    anim.SetFloat("vertical", Mathf.MoveTowards(anim.GetFloat("vertical"), 2.3f, Time.deltaTime * timeToMaxAnimSpeed * 0.8f));
 
-                    if(anim.GetFloat("vertical") > 1.95f) //멈추는 애니메이션 끝나면
+                    if(anim.GetFloat("vertical") > 2.28f) //멈추는 애니메이션 끝나면
                     {
                         isMove = false;
                     }

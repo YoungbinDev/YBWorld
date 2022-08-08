@@ -90,14 +90,14 @@ BlendTree:
     m_Motion: {fileID: -203655887218126122, guid: acdf0d90e0580954ca6878018189bef2, type: 3}
     m_Threshold: 2.6000001
     m_Position: {x: 0, y: 1.5}
-    m_TimeScale: 1
+    m_TimeScale: 0.95
     m_CycleOffset: 0
     m_DirectBlendParameter: vertical
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: 631a3eaca0e6f8d4ba83a769dbb7fd2a, type: 3}
-    m_Threshold: 3.8000002
-    m_Position: {x: 0, y: 2}
+    m_Threshold: 5
+    m_Position: {x: 0, y: 2.3}
     m_TimeScale: 2
     m_CycleOffset: 0
     m_DirectBlendParameter: vertical
@@ -105,7 +105,7 @@ BlendTree:
   m_BlendParameter: horizontal
   m_BlendParameterY: vertical
   m_MinThreshold: 0
-  m_MaxThreshold: 3.8000002
+  m_MaxThreshold: 5
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 2
@@ -163,12 +163,12 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.51276344
+  m_TransitionDuration: 0.45419723
   m_TransitionOffset: 0
-  m_ExitTime: 0.54630244
+  m_ExitTime: 0.54630256
   m_HasExitTime: 0
   m_HasFixedDuration: 1
-  m_InterruptionSource: 2
+  m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
 --- !u!91 &9100000
@@ -185,19 +185,19 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: horizontal
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: isMove
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
