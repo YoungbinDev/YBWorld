@@ -40,7 +40,6 @@ public class InputDeviceController : MonoBehaviour
             {
                 pc.enabled = true;
                 pc.input.defaultControlScheme = inputDevice.ToString();
-                //pc.input.SwitchCurrentControlScheme(inputDevice.ToString(), pc.input.devices.ToArray());
                 pc.input.enabled = false;
                 pc.input.enabled = true;
             }

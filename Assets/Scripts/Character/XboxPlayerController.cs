@@ -18,8 +18,8 @@ public class XboxPlayerController : PlayerController
 
     private void FixedUpdate()
     {
-        Vector3 forward = cam.transform.forward;
-        Vector3 right = cam.transform.right;
+        Vector3 forward = mainCam.transform.forward;
+        Vector3 right = mainCam.transform.right;
 
         forward.y = 0; right.y = 0;
 

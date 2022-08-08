@@ -19,7 +19,7 @@ public class KeyboardPlayerController : PlayerController
     private void FixedUpdate()
     {
         Vector3 moveDir = new Vector3(inputVec.x, 0, inputVec.y).normalized;
-        moveDir = cam.transform.TransformDirection(moveDir);
+        moveDir = mainCam.transform.TransformDirection(moveDir);
 
         if(isMove)
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveDir), Time.deltaTime * 10);

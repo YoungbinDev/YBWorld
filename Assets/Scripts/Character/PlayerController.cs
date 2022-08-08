@@ -1,3 +1,4 @@
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,7 +17,8 @@ public class PlayerController : MonoBehaviour
 {
     public EnumInputDevice inputDevice = EnumInputDevice.None;
     public PlayerInput input;
-    public Camera cam;
+    public Camera mainCam;
+    public GameObject chinemachine;
     public float walkSpeed;
     public float runSpeed;
     public bool isRun;
@@ -34,11 +36,17 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
+        if (chinemachine != null)
+            chinemachine.SetActive(true);
+
         AddInputAction();
     }
 
     private void OnDisable()
     {
+        if(chinemachine != null)
+            chinemachine.SetActive(false);
+
         RemoveInputAction();
     }
 
