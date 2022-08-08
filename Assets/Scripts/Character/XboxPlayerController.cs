@@ -31,22 +31,26 @@ public class XboxPlayerController : PlayerController
             moveDir = (forward * inputVec.y + right * inputVec.x).normalized;
 
             isMove = true;
-            anim.SetFloat("vertical", Mathf.MoveTowards(anim.GetFloat("vertical"), inputVec.magnitude, Time.deltaTime * timeToMaxAnimSpeed));
+
+            if(isRun)
+                anim.SetFloat("vertical", Mathf.MoveTowards(anim.GetFloat("vertical"), inputVec.magnitude * 1.5f, Time.deltaTime * timeToMaxAnimSpeed));
+            else
+                anim.SetFloat("vertical", Mathf.MoveTowards(anim.GetFloat("vertical"), inputVec.magnitude, Time.deltaTime * timeToMaxAnimSpeed));
         }
         else
         {
             if (!firstStep)
             {
-                if (anim.GetFloat("vertical") > 0.8f)
+                if (anim.GetFloat("vertical") > 1.3f) //달리기 중이면
                 {
-                    anim.SetFloat("vertical", Mathf.MoveTowards(anim.GetFloat("vertical"), 1.5f, Time.deltaTime * timeToMaxAnimSpeed / 2));
+                    anim.SetFloat("vertical", Mathf.MoveTowards(anim.GetFloat("vertical"), 2.0f, Time.deltaTime * timeToMaxAnimSpeed / 2));
 
-                    if(anim.GetFloat("vertical") > 1.45f)
+                    if(anim.GetFloat("vertical") > 1.95f) //멈추는 애니메이션 끝나면
                     {
                         isMove = false;
                     }
                 }
-                else
+                else //걷는 중이면
                 {
                     isMove = false;
                 }
