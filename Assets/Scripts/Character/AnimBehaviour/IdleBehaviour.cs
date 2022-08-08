@@ -19,6 +19,10 @@ public class IdleBehaviour : StateMachineBehaviour
             {
                 animator.SetFloat("vertical", 0);
             }
+            if (animator.GetFloat("horizontal") != 0)
+            {
+                animator.SetFloat("horizontal", 0);
+            }
         }
     }
 

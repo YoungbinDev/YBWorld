@@ -32,33 +32,29 @@ public class XboxPlayerController : PlayerController
 
             isMove = true;
 
+            if (currentCoroutine != null)
+            {
+                StopCoroutine(currentCoroutine);
+                currentCoroutine = null;
+            }
+
+            anim.SetFloat("horizontal", Mathf.MoveTowards(anim.GetFloat("horizontal"), 0, Time.deltaTime * timeToMaxAnimSpeed));
+
             if (isRun)
             {
-                if(anim.GetFloat("vertical") > 1.0f)
-                    anim.SetFloat("vertical", Mathf.MoveTowards(anim.GetFloat("vertical"), inputVec.magnitude * 1.5f, Time.deltaTime * timeToMaxAnimSpeed * 0.5f));
-                else
-                    anim.SetFloat("vertical", Mathf.MoveTowards(anim.GetFloat("vertical"), inputVec.magnitude * 1.5f, Time.deltaTime * timeToMaxAnimSpeed * 1.3f));
+                anim.SetFloat("vertical", Mathf.MoveTowards(anim.GetFloat("vertical"), inputVec.magnitude * 2f, Time.deltaTime * timeToMaxAnimSpeed));
             }
             else
+            {
                 anim.SetFloat("vertical", Mathf.MoveTowards(anim.GetFloat("vertical"), inputVec.magnitude, Time.deltaTime * timeToMaxAnimSpeed));
+            }
         }
         else
         {
-            if (!firstStep)
+            if (anim.GetFloat("vertical") > 0)
             {
-                if (anim.GetFloat("vertical") > 1.3f) //달리기 중이면
-                {
-                    anim.SetFloat("vertical", Mathf.MoveTowards(anim.GetFloat("vertical"), 2.3f, Time.deltaTime * timeToMaxAnimSpeed * 0.8f));
-
-                    if(anim.GetFloat("vertical") > 2.28f) //멈추는 애니메이션 끝나면
-                    {
-                        isMove = false;
-                    }
-                }
-                else //걷는 중이면
-                {
-                    isMove = false;
-                }
+                if(currentCoroutine == null)
+                    currentCoroutine = StartCoroutine(StopWalking());
             }
         }
 
@@ -76,6 +72,29 @@ public class XboxPlayerController : PlayerController
         moveVec += new Vector3(anim.deltaPosition.x, 0, anim.deltaPosition.z);
     }
 
+    Coroutine currentCoroutine = null;
+
+    IEnumerator StopWalking()
+    {
+        if (anim.GetFloat("vertical") > 1.75f)
+        {
+            while (anim.GetFloat("vertical") != 0 || anim.GetFloat("horizontal") != 1)
+            {
+                yield return null;
+
+                anim.SetFloat("vertical", Mathf.MoveTowards(anim.GetFloat("vertical"), 0f, Time.deltaTime * timeToMaxAnimSpeed * 1.5f));
+                anim.SetFloat("horizontal", Mathf.MoveTowards(anim.GetFloat("horizontal"), 1f, Time.deltaTime * timeToMaxAnimSpeed));
+            }
+
+            isMove = false;
+        }
+        else
+            isMove = false;
+
+        yield return new WaitUntil(() => anim.GetFloat("vertical") == 0);
+        currentCoroutine = null;
+    }
+
     public bool firstStep = true;
 
     public override void Movement(InputAction.CallbackContext context)
@@ -84,10 +103,7 @@ public class XboxPlayerController : PlayerController
 
         if(context.performed)
         {
-            if (firstStep)
-            {
-                firstStep = false;
-            }
+           
         }
     }
 
