@@ -28,6 +28,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press(behavior=2)"
+                },
+                {
+                    "name": "Look",
+                    "type": "PassThrough",
+                    "id": "b278f792-d723-4007-b445-763349a6bfc6",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -138,6 +146,28 @@
                     "processors": "StickDeadzone",
                     "groups": "XboxController",
                     "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9c6a89c4-f9c7-4344-835d-cdf91a7624d5",
+                    "path": "<XInputController>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "XboxController",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1553a0df-e635-457d-9c2e-30adcd62eb4e",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
