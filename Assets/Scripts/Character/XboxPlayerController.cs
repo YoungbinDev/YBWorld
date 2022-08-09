@@ -38,7 +38,7 @@ public class XboxPlayerController : PlayerController
                 currentCoroutine = null;
             }
 
-            anim.SetFloat("horizontal", Mathf.MoveTowards(anim.GetFloat("horizontal"), 0, Time.deltaTime * timeToMaxAnimSpeed));
+            anim.SetFloat("horizontal", Mathf.MoveTowards(anim.GetFloat("horizontal"), 0, Time.deltaTime * timeToMaxAnimSpeed * 3));
 
             if (isRun)
             {
@@ -76,22 +76,37 @@ public class XboxPlayerController : PlayerController
 
     IEnumerator StopWalking()
     {
-        if (anim.GetFloat("vertical") > 1.75f)
+        float tempV = anim.GetFloat("vertical");
+        float tempH = anim.GetFloat("horizontal");
+        float tempTime = 0;
+
+        if (tempV > 1.5f)
         {
             while (anim.GetFloat("vertical") != 0 || anim.GetFloat("horizontal") != 1)
             {
                 yield return null;
 
-                anim.SetFloat("vertical", Mathf.MoveTowards(anim.GetFloat("vertical"), 0f, Time.deltaTime * timeToMaxAnimSpeed * 1.5f));
-                anim.SetFloat("horizontal", Mathf.MoveTowards(anim.GetFloat("horizontal"), 1f, Time.deltaTime * timeToMaxAnimSpeed));
-            }
+                tempTime = Mathf.Clamp(tempTime + Time.deltaTime * 0.75f, 0, 1);
 
-            isMove = false;
+                anim.SetFloat("vertical", Mathf.Lerp(tempV, 0f, tempTime));
+                anim.SetFloat("horizontal", Mathf.Lerp(tempH, 1f, tempTime));
+            }
         }
         else
-            isMove = false;
+        {
+            while (anim.GetFloat("vertical") > 0.3f)
+            {
+                yield return null;
 
-        yield return new WaitUntil(() => anim.GetFloat("vertical") == 0);
+                tempTime = Mathf.Clamp(tempTime + Time.deltaTime * 2, 0, 1);
+
+                anim.SetFloat("vertical", Mathf.Lerp(tempV, 0f, tempTime));
+                anim.SetFloat("horizontal", Mathf.Lerp(tempH, 0f, tempTime));
+            }
+        }
+
+        isMove = false;
+
         currentCoroutine = null;
     }
 
