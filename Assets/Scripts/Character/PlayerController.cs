@@ -69,13 +69,13 @@ public class PlayerController : MonoBehaviour
         input.actions["Run"].performed -= Run;
     }
 
-    public virtual void Movement(InputAction.CallbackContext context)
+    protected void Movement(InputAction.CallbackContext context)
     {
         inputVec = context.ReadValue<Vector2>();
         isInput = inputVec.magnitude != 0;
     }
 
-    public void Run(InputAction.CallbackContext context)
+    protected void Run(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public virtual void Jump(InputAction.CallbackContext context)
+    protected virtual void Jump(InputAction.CallbackContext context)
     {
 
     }

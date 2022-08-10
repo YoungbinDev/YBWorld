@@ -109,17 +109,4 @@ public class XboxPlayerController : PlayerController
 
         currentCoroutine = null;
     }
-
-    public bool firstStep = true;
-
-    public override void Movement(InputAction.CallbackContext context)
-    {
-        base.Movement(context);
-
-        if(context.performed)
-        {
-           
-        }
-    }
-
 }

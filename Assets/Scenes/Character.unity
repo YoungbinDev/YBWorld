@@ -1703,12 +1703,23 @@ MonoBehaviour:
   moveDir: {x: 0, y: 0, z: 0}
   moveVec: {x: 0, y: 0, z: 0}
   timeToMaxAnimSpeed: 1
-  firstStep: 1
 --- !u!4 &1410514412 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5706258827001868897, guid: c144563f341acd94cb94a1f60f2f0f9a, type: 3}
   m_PrefabInstance: {fileID: 1410514406}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1410514413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410514407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd6b02f73cc99c243b8be253298b51ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1414595059
 GameObject:
   m_ObjectHideFlags: 0
