@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     public float timeToMaxAnimSpeed = 1.0f;
 
     protected Animator anim;
+    [SerializeField] protected Animator hideAnim;
     protected Rigidbody rigid;
     protected PlayerActions playerAction;
     protected float lerpRef = 0;

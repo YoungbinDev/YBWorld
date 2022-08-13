@@ -60,10 +60,29 @@ public class XboxPlayerController : PlayerController
 
         anim.SetBool("isMove", isMove);
 
-        if(moveDir != Vector3.zero)
+        for(int i = 0; i < anim.parameters.Length; i++)
+        {
+            switch(anim.parameters[i].type)
+            {
+                case AnimatorControllerParameterType.Bool:
+                    hideAnim.SetBool(anim.parameters[i].name, anim.GetBool(anim.parameters[i].name));
+                    break;
+                case AnimatorControllerParameterType.Float:
+                    hideAnim.SetFloat(anim.parameters[i].name, anim.GetFloat(anim.parameters[i].name));
+                    break;
+                case AnimatorControllerParameterType.Int:
+                    hideAnim.SetInteger(anim.parameters[i].name, anim.GetInteger(anim.parameters[i].name));
+                    break;
+            }
+        }
+
+        hideAnim.transform.position = this.transform.position;
+        hideAnim.transform.rotation = this.transform.rotation;
+
+        if (moveDir != Vector3.zero)
             rigid.MoveRotation(Quaternion.Lerp(rigid.rotation, Quaternion.LookRotation(moveDir), Time.deltaTime * 5));
 
-        rigid.MovePosition(rigid.position + moveVec);
+        //rigid.MovePosition(rigid.position + moveVec);
         moveVec = Vector3.zero;
     }
 
