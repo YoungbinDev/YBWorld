@@ -82,9 +82,18 @@ public class XboxPlayerController : PlayerController
         if (moveDir != Vector3.zero)
             rigid.MoveRotation(Quaternion.Lerp(rigid.rotation, Quaternion.LookRotation(moveDir), Time.deltaTime * 5));
 
-        //rigid.MovePosition(rigid.position + moveVec);
+        rigid.MovePosition(rigid.position + moveVec);
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(body.position, Vector3.down, out hit, 2f, 1 << LayerMask.NameToLayer("Terrain")))
+        {
+            rigid.position = new Vector3(rigid.position.x, Mathf.Lerp(rigid.position.y, hit.point.y, Time.deltaTime * 10), rigid.position.z);
+        }
+
         moveVec = Vector3.zero;
     }
+    [SerializeField] private Transform body;
 
     private void OnAnimatorMove()
     {
