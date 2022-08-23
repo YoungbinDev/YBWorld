@@ -196,6 +196,36 @@ Transform:
   m_Father: {fileID: 2108136197}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1888408133
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1888408134}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1888408134
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888408133}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.081, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6454230774241313515}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2005501689
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,7 +314,7 @@ MonoBehaviour:
     m_MaintainTargetPositionOffset: 0
     m_MaintainTargetRotationOffset: 0
   m_SourceObjectsGUIToggle: 1
-  m_SettingsGUIToggle: 0
+  m_SettingsGUIToggle: 1
 --- !u!1 &162514331658857720
 GameObject:
   m_ObjectHideFlags: 0
@@ -1722,6 +1752,7 @@ Transform:
   - {fileID: 454896032153113712}
   - {fileID: 6454230774343209870}
   - {fileID: 624260176}
+  - {fileID: 1888408134}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1771,9 +1802,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 0
   m_Radius: 0.26
-  m_Height: 1.6740456
+  m_Height: 1.7569494
   m_Direction: 1
-  m_Center: {x: 0, y: 0.90431595, z: 0}
+  m_Center: {x: 0, y: 0.862864, z: 0}
 --- !u!114 &6454230774241313518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1868,6 +1899,7 @@ MonoBehaviour:
   moveVec: {x: 0, y: 0, z: 0}
   timeToMaxAnimSpeed: 1
   hideAnim: {fileID: 0}
+  body: {fileID: 1888408134}
 --- !u!114 &6454230774241313514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1880,15 +1912,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd6b02f73cc99c243b8be253298b51ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableFeetIK: 1
+  heightFromGroundRaycast: 0.65
+  raycastDownDistance: 0.8
+  enviromentLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  rootOffset: -0.01
+  rootUpAndDownSpeed: 0.5
+  feetToIKPositionSpeed: 0.5
+  leftFootAnimVariableName: IKLeftFootWeight
+  rightFootAnimVariableName: IKRightFootWeight
+  useProIKFeature: 1
+  showSolverDebug: 1
+  rightFootIK: {fileID: 1347595527}
   originRightFoot: {fileID: 6508425350586856225}
   hideRightFoot: {fileID: 0}
   rightFootTarget: {fileID: 2005501690}
+  leftFootIK: {fileID: 2108136198}
   originLeftFoot: {fileID: 6082511589879332009}
   hideLeftFoot: {fileID: 0}
   leftFootTarget: {fileID: 1664799158}
-  rayOffset: {x: 0, y: 0.5, z: 0}
-  rayDistance: 0.65
-  footPosOffsetY: 0.1
 --- !u!114 &1410514408
 MonoBehaviour:
   m_ObjectHideFlags: 0

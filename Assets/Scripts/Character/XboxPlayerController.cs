@@ -82,14 +82,20 @@ public class XboxPlayerController : PlayerController
         if (moveDir != Vector3.zero)
             rigid.MoveRotation(Quaternion.Lerp(rigid.rotation, Quaternion.LookRotation(moveDir), Time.deltaTime * 5));
 
-        rigid.MovePosition(rigid.position + moveVec);
+        //Debug.Log(this.GetComponent<IKFootPlacement>().MovePelvisHeight());
+        //Vector3 test = this.GetComponent<IKFootPlacement>().MovePelvisHeight() - rigid.position;
+        //Debug.Log(test.y);
+        Vector3 test = this.GetComponent<IKFootPlacement>().MoveRootHeight();
 
-        RaycastHit hit;
+        Debug.Log(test);
+        rigid.MovePosition(test + moveVec /*+ Vector3.up * test.y*/);
 
-        if (Physics.Raycast(body.position, Vector3.down, out hit, 2f, 1 << LayerMask.NameToLayer("Terrain")))
-        {
-            rigid.position = new Vector3(rigid.position.x, Mathf.Lerp(rigid.position.y, hit.point.y, Time.deltaTime * 10), rigid.position.z);
-        }
+        //RaycastHit hit;
+
+        //if (Physics.Raycast(body.position, Vector3.down, out hit, 2f, 1 << LayerMask.NameToLayer("Terrain")))
+        //{
+        //    rigid.position = new Vector3(rigid.position.x, Mathf.Lerp(rigid.position.y, hit.point.y, Time.deltaTime * 10), rigid.position.z);
+        //}
 
         moveVec = Vector3.zero;
     }
