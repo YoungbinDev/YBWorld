@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     protected Rigidbody rigid;
     protected PlayerActions playerAction;
     protected float lerpRef = 0;
+    protected IKFootPlacement ikFootPlacement;
 
     private void OnEnable()
     {
@@ -55,6 +56,7 @@ public class PlayerController : MonoBehaviour
     {
         anim = this.GetComponent<Animator>();
         rigid = this.GetComponent<Rigidbody>();
+        ikFootPlacement = this.GetComponent<IKFootPlacement>();
     }
 
     protected void AddInputAction()

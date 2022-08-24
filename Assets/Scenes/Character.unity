@@ -3371,6 +3371,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 608321761475470972, guid: 48f24cdeb2fe0374683645b2ea10695b, type: 3}
   m_PrefabInstance: {fileID: 813694710}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1949443030 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 48f24cdeb2fe0374683645b2ea10695b, type: 3}
+  m_PrefabInstance: {fileID: 813694710}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1962612641
 GameObject:
   m_ObjectHideFlags: 3
@@ -4328,6 +4333,26 @@ PrefabInstance:
       propertyPath: hideRightFoot
       value: 
       objectReference: {fileID: 1793981635}
+    - target: {fileID: 6454230774241313514, guid: c144563f341acd94cb94a1f60f2f0f9a, type: 3}
+      propertyPath: showSolverDebug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454230774241313514, guid: c144563f341acd94cb94a1f60f2f0f9a, type: 3}
+      propertyPath: useProIKFeature
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454230774241313514, guid: c144563f341acd94cb94a1f60f2f0f9a, type: 3}
+      propertyPath: hideRootTransform
+      value: 
+      objectReference: {fileID: 1949443030}
+    - target: {fileID: 6454230774241313514, guid: c144563f341acd94cb94a1f60f2f0f9a, type: 3}
+      propertyPath: rootUpAndDownSpeed
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454230774241313514, guid: c144563f341acd94cb94a1f60f2f0f9a, type: 3}
+      propertyPath: feetToIKPositionSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6454230774241313515, guid: c144563f341acd94cb94a1f60f2f0f9a, type: 3}
       propertyPath: m_RootOrder
       value: 3
