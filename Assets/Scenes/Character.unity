@@ -4335,7 +4335,7 @@ PrefabInstance:
       objectReference: {fileID: 1793981635}
     - target: {fileID: 6454230774241313514, guid: c144563f341acd94cb94a1f60f2f0f9a, type: 3}
       propertyPath: showSolverDebug
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6454230774241313514, guid: c144563f341acd94cb94a1f60f2f0f9a, type: 3}
       propertyPath: useProIKFeature
@@ -4350,8 +4350,16 @@ PrefabInstance:
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 6454230774241313514, guid: c144563f341acd94cb94a1f60f2f0f9a, type: 3}
+      propertyPath: raycastDownDistance
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454230774241313514, guid: c144563f341acd94cb94a1f60f2f0f9a, type: 3}
       propertyPath: feetToIKPositionSpeed
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454230774241313514, guid: c144563f341acd94cb94a1f60f2f0f9a, type: 3}
+      propertyPath: heightFromGroundRaycast
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 6454230774241313515, guid: c144563f341acd94cb94a1f60f2f0f9a, type: 3}
       propertyPath: m_RootOrder
@@ -4396,6 +4404,10 @@ PrefabInstance:
     - target: {fileID: 6454230774241313515, guid: c144563f341acd94cb94a1f60f2f0f9a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454230774241313516, guid: c144563f341acd94cb94a1f60f2f0f9a, type: 3}
+      propertyPath: test
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6454230774241313516, guid: c144563f341acd94cb94a1f60f2f0f9a, type: 3}
       propertyPath: mainCam
