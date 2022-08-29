@@ -1723,7 +1723,7 @@ GameObject:
   - component: {fileID: 6454230774241313515}
   - component: {fileID: 8384227479716684822}
   - component: {fileID: 8543413840498363687}
-  - component: {fileID: 6454230774241313519}
+  - component: {fileID: 1410514417}
   - component: {fileID: 6454230774241313518}
   - component: {fileID: 6454230774241313517}
   - component: {fileID: 6454230774241313516}
@@ -1791,8 +1791,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!136 &6454230774241313519
-CapsuleCollider:
+--- !u!65 &1410514417
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1800,11 +1800,10 @@ CapsuleCollider:
   m_GameObject: {fileID: 6454230774241313504}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.26
-  m_Height: 1.7569494
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.862864, z: 0}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.32526913, y: 1.4774668, z: 0.32526913}
+  m_Center: {x: -0, y: 1.0762248, z: 0}
 --- !u!114 &6454230774241313518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1899,7 +1898,6 @@ MonoBehaviour:
   moveVec: {x: 0, y: 0, z: 0}
   timeToMaxAnimSpeed: 1
   hideAnim: {fileID: 0}
-  body: {fileID: 1888408134}
 --- !u!114 &6454230774241313514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1912,27 +1910,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd6b02f73cc99c243b8be253298b51ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rightFootIK: {fileID: 1347595527}
+  hideRightFoot: {fileID: 0}
+  rightFootTarget: {fileID: 2005501690}
+  leftFootIK: {fileID: 2108136198}
+  hideLeftFoot: {fileID: 0}
+  leftFootTarget: {fileID: 1664799158}
   enableFeetIK: 1
-  heightFromGroundRaycast: 0.65
-  raycastDownDistance: 0.8
+  heightFromGroundRaycast: 0.35
+  raycastDownDistance: 0.35
   enviromentLayer:
     serializedVersion: 2
     m_Bits: 64
   rootOffset: -0.01
-  rootUpAndDownSpeed: 0.5
-  feetToIKPositionSpeed: 0.5
+  rootUpAndDownSpeed: 0.05
+  feetToIKPositionSpeed: 0.1
   leftFootAnimVariableName: IKLeftFootWeight
   rightFootAnimVariableName: IKRightFootWeight
   useProIKFeature: 1
   showSolverDebug: 1
-  rightFootIK: {fileID: 1347595527}
-  originRightFoot: {fileID: 6508425350586856225}
-  hideRightFoot: {fileID: 0}
-  rightFootTarget: {fileID: 2005501690}
-  leftFootIK: {fileID: 2108136198}
-  originLeftFoot: {fileID: 6082511589879332009}
-  hideLeftFoot: {fileID: 0}
-  leftFootTarget: {fileID: 1664799158}
 --- !u!114 &1410514408
 MonoBehaviour:
   m_ObjectHideFlags: 0

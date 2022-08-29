@@ -45,8 +45,11 @@ public class IKFootPlacement : MonoBehaviour
         if (enableFeetIK == false) return;
         if (anim == null) return;
 
-        FeetPositionSolver(hideRightFoot.position + Vector3.up * heightFromGroundRaycast, ref rightFootIKPosition, ref rightFootIKRotation);
-        FeetPositionSolver(hideLeftFoot.position + Vector3.up * heightFromGroundRaycast, ref leftFootIKPosition, ref leftFootIKRotation);
+        FeetPositionSolver(new Vector3(hideRightFoot.position.x, transform.position.y, hideRightFoot.position.z) + Vector3.up * heightFromGroundRaycast, ref rightFootIKPosition, ref rightFootIKRotation);
+        FeetPositionSolver(new Vector3(hideLeftFoot.position.x, transform.position.y, hideLeftFoot.position.z) + Vector3.up * heightFromGroundRaycast, ref leftFootIKPosition, ref leftFootIKRotation);
+
+        //FeetPositionSolver(hideRightFoot.position + Vector3.up * heightFromGroundRaycast, ref rightFootIKPosition, ref rightFootIKRotation);
+        //FeetPositionSolver(hideLeftFoot.position + Vector3.up * heightFromGroundRaycast, ref leftFootIKPosition, ref leftFootIKRotation);
     }
 
     private void LateUpdate()
@@ -54,19 +57,21 @@ public class IKFootPlacement : MonoBehaviour
         if (enableFeetIK == false) return;
         if (anim == null) return;
 
-        rightFootIK.data.targetPositionWeight = 1;
+        //rightFootIK.data.targetPositionWeight = 1;
 
         if (useProIKFeature)
         {
+            rightFootIK.data.targetPositionWeight = anim.GetFloat(rightFootAnimVariableName);
             rightFootIK.data.targetRotationWeight = anim.GetFloat(rightFootAnimVariableName);
         }
 
         MoveFeetToIKPoint(rightFootTarget, hideRightFoot, rightFootIKPosition, rightFootIKRotation, ref lastRightFootPositionY);
 
-        leftFootIK.data.targetPositionWeight = 1;
+        //leftFootIK.data.targetPositionWeight = 1;
 
         if (useProIKFeature)
         {
+            leftFootIK.data.targetPositionWeight = anim.GetFloat(leftFootAnimVariableName);
             leftFootIK.data.targetRotationWeight = anim.GetFloat(leftFootAnimVariableName);
         }
 
@@ -112,7 +117,7 @@ public class IKFootPlacement : MonoBehaviour
 
         newRootPosition.y = Mathf.Lerp(lastRootPositionY, newRootPosition.y, rootUpAndDownSpeed);
 
-        lastRootPositionY = transform.position.y;
+        lastRootPositionY = newRootPosition.y;
 
         return newRootPosition;
     }
@@ -133,6 +138,7 @@ public class IKFootPlacement : MonoBehaviour
             return;
         }
 
+        Debug.Log("test");
         feetIKPositions = Vector3.zero;
     }
 }
